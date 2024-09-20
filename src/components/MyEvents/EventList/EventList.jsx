@@ -43,29 +43,28 @@ const EventList = () => {
 
    const handelSearce = ({ target }) => dispatch(setFilter(target.value));
 
-  // const elements = items.map(({ id, name, number }) => {
-  //   return (
-  //     <li key={id} className={css.items}>
-  //       {name} :{number}
-  //       <button
-  //         onClick={() => deleteName(id)}
-  //         type="button"
-  //         className={`${css.button} ${
-  //           selectedButtonId === id ? css.selectedButton : ''
-  //         }`}
-  //       >
-  //         {selectedButtonId === id ? 'Loading...' : 'Delete'}
-  //       </button>
-  //     </li>
-  //   );
-  // });
-
-  return (
+   return (
     <>
-      <div className={css.wrapper}>
-        <h2>Events</h2>
-       
-      </div>
+      {items.result && items.result.length > 0 ? (
+        <ul >
+          {items.result.map(({ _id, title, description }) => (
+            <li key={_id} className={css.wrapper}>
+              <h2>{title}</h2>
+              <p>{description}</p>
+              <div>
+                <button type="button" className={css.button}>
+                  Registratin
+                </button>
+                <button type="button" className={css.button}>
+                  Viev 
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>Event not found</p>
+      )}
     </>
   );
 };

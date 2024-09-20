@@ -6,9 +6,9 @@ export const selectAllEvents = store => store.events.items;
 export const selectorRequestStutus=state=>state.events.requestStutus
 
 
-export const selectContact = state =>state.events
+export const selectEvent = state =>state.events
 
-export const selectFilterContact = createSelector([selectAllEvents , selectFilter],(events , filter) => {
+export const selectFilteEvent = createSelector([selectAllEvents , selectFilter],(events , filter) => {
   if (!filter) {
     return events;
   }

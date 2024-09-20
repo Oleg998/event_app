@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
   fetchEvents
-} from './contacts-operation';
+} from './events-operation';
 
 const initialState = { items: [], isLoading: false, error: null , requestStutus:""};
 

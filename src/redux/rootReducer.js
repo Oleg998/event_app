@@ -1,9 +1,9 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import contactReducer from './event/contacts-slice';
+import contactReducer from './event/events-slice';
 import filterReducer from './filter/filter-slice';
-import authReducer from './auth/auth-slice';
+
 
 
 const persistConfig={
@@ -11,12 +11,12 @@ const persistConfig={
   storage,
   whitelist:["token"]
 }
-const persistedAuthReducer=persistReducer(persistConfig, authReducer);
+const persistedAuthReducer=persistReducer(persistConfig);
 
 const rootReducer = combineReducers({
   contacts: contactReducer,
   filter: filterReducer,
-  auth:persistedAuthReducer
+
 });
 
 

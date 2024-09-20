@@ -1,0 +1,27 @@
+
+.wrraper {
+    display: block;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+}
+
+.shadowText{
+    padding: 20px 0px;
+  text-align: center;
+  color: #f66d52;
+  font-size: 70px; 
+  font-weight: bold;
+  text-transform: uppercase;
+  line-height: 1;
+  -webkit-transition: all 0.5s ease;
+          transition: all 0.5s ease;
+}
+.shadowText:hover{
+  color: #ffa000; 
+  -webkit-text-shadow: 2px 2px 2px #000;
+  -moz-text-shadow: 2px 2px 2px #000;
+      text-shadow: 2px 2px 2px #000;
+}
+
+
+                

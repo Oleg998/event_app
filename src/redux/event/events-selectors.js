@@ -1,18 +1,18 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { selectFilter } from "../filter/filter-selectors";
 
-export const selectAllEvents = store => store.events.items;
+export const selectAllEvents = store => store.event.items;
 
-export const selectorRequestStutus=state=>state.events.requestStutus
+export const selectorRequestStutus=state=>state.event.requestStutus
 
 
-export const selectEvent = state =>state.events
+export const selectEvent = state =>state.event
 
-export const selectFilteEvent = createSelector([selectAllEvents , selectFilter],(events , filter) => {
+export const selectFilteEvent = createSelector([selectAllEvents , selectFilter],(event , filter) => {
   if (!filter) {
-    return events;
+    return event;
   }
   const normalizedFilter = filter.toLocaleLowerCase();
-  return events.filter(({ name }) =>
+  return event.filter(({ name }) =>
   name.toLocaleLowerCase().includes(normalizedFilter))
 })

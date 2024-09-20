@@ -17,8 +17,8 @@ const statusRejected = (state , {payload})=>{
   
 }
 
-const contactSlice = createSlice({
-  name: 'contact',
+const eventSlice = createSlice({
+  name: 'event',
   initialState,
   extraReducers: builder => {
     builder
@@ -31,6 +31,8 @@ const contactSlice = createSlice({
         state.requestStutus="fetchFulfilled"
       })
       .addCase(fetchEvents.rejected, statusRejected)
+
+
       // .addCase(addContacts.pending, statusPending)
 
       // .addCase(addContacts.fulfilled, (state, { payload }) => {
@@ -59,4 +61,4 @@ const contactSlice = createSlice({
   },
 });
 
-export default contactSlice.reducer;
+export default eventSlice.reducer;

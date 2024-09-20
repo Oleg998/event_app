@@ -1,7 +1,7 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import contactReducer from './event/events-slice';
+import eventReducer from './event/events-slice';
 import filterReducer from './filter/filter-slice';
 
 
@@ -14,7 +14,7 @@ const persistConfig={
 const persistedAuthReducer=persistReducer(persistConfig);
 
 const rootReducer = combineReducers({
-  contacts: contactReducer,
+  event: eventReducer,
   filter: filterReducer,
 
 });

@@ -9,7 +9,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 import './calendar.css';
 
-const EventReg = ({ onClose, onSubmit, }) => {
+const EventReg = ({ onClose, }) => {
   const options = {
     year: 'numeric',
     month: 'numeric',
@@ -58,8 +58,13 @@ const EventReg = ({ onClose, onSubmit, }) => {
       Notiflix.Notify.failure('The name and email address cannot be empty.');
       return;
     }
+    
+    const formData = { ...addCardModalState, birthday: selectedDate };
+    
+    // Выводим данные формы в консоль
+    console.log('Submitted Form Data:', formData);
+    
     onClose(false);
-    onSubmit({ ...addCardModalState, deadline: selectedDate });
     setAddCardModal({ ...INITIAL_STATE });
   };
 

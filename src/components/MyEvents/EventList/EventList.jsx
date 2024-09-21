@@ -1,24 +1,24 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setFilter } from '../../../redux/filter/filter-slice';
+
 import {
   selectFilteEvent,
-  selectorRequestStutus,
-  selectEvent
+ 
+  
 
 } from '../../../redux/event/events-selectors';
 import {
   fetchEvents
 } from '../../../redux/event/events-operation';
 import css from './EventList.module.css';
-import { toast } from 'react-toastify';
+
 
 const EventList = () => {
   const [selectedButtonId, setSelectedButtonId] = useState(null);
 
-  const status= useSelector(selectorRequestStutus)
+
   const dispatch = useDispatch();
-  const {  error  } = useSelector(selectEvent);
+
   const items = useSelector(selectFilteEvent);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const EventList = () => {
   //   setSelectedButtonId(id);
   // };
 
-   const handelSearce = ({ target }) => dispatch(setFilter(target.value));
+
 
    return (
     <>

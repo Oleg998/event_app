@@ -1,4 +1,4 @@
-import contactsInstance from "./auth-api"
+import contactsInstance from "./user-api"
 
 
 export const requestEvent = async () =>{

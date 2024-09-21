@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
-import CloseButton from './CloseButton/CloseButton';
+import CloseButton from '../CloseButton/CloseButton';
 
 
 import css from './modal.module.css';

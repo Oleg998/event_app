@@ -1,19 +1,15 @@
 import css from './eventReg.module.css';
 import Notiflix from 'notiflix';
-import sprite from '../../../images/icons.svg';
-import FormBtn from './../FormBtn/FormBtn';
-import React, { useEffect, useState, forwardRef } from 'react';
+import sprite from '../../images/icons.svg';
+import FormBtn from '../FormBtn/FormBtn';
+import React, { useState, forwardRef } from 'react';
 import DatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
 import './calendar.css';
 
-import { useSelector } from 'react-redux';
-import { selectTheme } from '../../../redux/auth/auth-selectors';
-import CurrentTheme from 'shared/components/CurrentTheme/CurrentTheme';
-
-const AddCardModal = ({ onClose, onSubmit, initialTaskState, btnText }) => {
+const EventReg = ({ onClose, onSubmit, }) => {
   const options = {
     year: 'numeric',
     month: 'numeric',
@@ -24,34 +20,21 @@ const AddCardModal = ({ onClose, onSubmit, initialTaskState, btnText }) => {
   const firstData = dat.toLocaleDateString('en-US', options);
 
   const INITIAL_STATE = {
-    title: initialTaskState ? initialTaskState.title : '',
-    description: initialTaskState ? initialTaskState.description : '',
-    priority: initialTaskState ? initialTaskState.description.priority : 'Low',
+    name: '',
+    email: '',
+    priority: 'Social media',
   };
 
   const [addCardModalState, setAddCardModal] = useState({ ...INITIAL_STATE });
   const [selectedDate, setSelectedDate] = useState(firstData);
 
-  useEffect(() => {
-    if (initialTaskState) {
-      setSelectedDate(initialTaskState.deadline);
-    }
-  }, [initialTaskState]);
+ 
 
-  const currentTheme = useSelector(selectTheme);
-
-  const themeClassMap = {
-    dark: css.theme_dark,
-    light: css.theme_light,
-    violet: css.theme_violet,
-  };
-
-  const cardTheme = themeClassMap[currentTheme] || '';
 
   const validateInput = () => {
     return (
-      addCardModalState.title.trim() !== '' &&
-      addCardModalState.description.trim() !== ''
+      addCardModalState.name.trim() !== '' &&
+      addCardModalState.email.trim() !== ''
     );
   };
 
@@ -72,7 +55,7 @@ const AddCardModal = ({ onClose, onSubmit, initialTaskState, btnText }) => {
   const handleSubmit = e => {
     e.preventDefault();
     if (!validateInput()) {
-      Notiflix.Notify.failure('Description cannot be empty');
+      Notiflix.Notify.failure('The name and email address cannot be empty.');
       return;
     }
     onClose(false);
@@ -138,125 +121,88 @@ const AddCardModal = ({ onClose, onSubmit, initialTaskState, btnText }) => {
     );
   });
 
-  const { title, description, priority } = addCardModalState;
+  const { name, email, priority } = addCardModalState;
   return (
     <form className={css.form} onSubmit={handleSubmit}>
+      <label htmlFor="name">Full name </label>
       <input
-        value={title}
-        className={`${css.input} ${cardTheme}`}
+        value={name}
+        className={css.input}
         type="text"
-        name="title"
+        name="name"
         required
-        placeholder="Title "
+        id="name"
+        onChange={handleChange}
+      ></input>
+<label htmlFor="email">Email </label>
+<input
+
+        value={email}
+        className={css.input}
+        type="email"
+        name="email"
+        required
+        id="email"
         onChange={handleChange}
       ></input>
 
-      <textarea
-        className={`${css.textarea} ${cardTheme}`}
-        value={description}
-        name="description"
-        rows="7"
-        required
-        placeholder="Description"
-        onChange={handleChange}
-      ></textarea>
       <div className={css.radio_container}>
-        <p className={`${css.sub_title} ${cardTheme}`}>Label color</p>
+        <p className={css.sub_title} >Where did you hear about this event?</p>
         <div className={css.radio_container_item}>
-          <div>
-            <input
-              checked={priority === 'Low'}
-              className={css.radio_input}
-              name="priority"
-              type="radio"
-              value="Low"
-              id="Low"
-              onChange={handleChange}
-            />
-            <label className={css.label_icon} htmlFor="Low">
-              <svg className={css.icon}>
-                <use
-                  href={`${sprite}${
-                    priority === 'Low' ? '#radio-active-icon' : '#radio-icon'
-                  }`}
-                />
-              </svg>
-            </label>
-          </div>
+  <div>
+    <input
+      checked={priority === 'Social media'}
+      className={css.radio_input}
+      name="priority"
+      type="radio"
+      value="Social media"
+      id="Social media"
+      onChange={handleChange}
+    />
+    <label className={css.label_icon} htmlFor="Social media">
+      <span className={priority === 'Social media' ? css.circle_active : css.circle}></span>
+      <span className={css.label_text}>Social media</span>
+    </label>
+  </div>
 
-          <div>
-            <input
-              checked={priority === 'Medium'}
-              className={css.radio_input}
-              name="priority"
-              type="radio"
-              value="Medium"
-              id="Medium"
-              onChange={handleChange}
-            />
-            <label className={css.label_icon} htmlFor="Medium">
-              <svg className={css.icon}>
-                <use
-                  href={`${sprite}${
-                    priority === 'Medium' ? '#radio-active-icon' : '#radio-icon'
-                  }`}
-                />
-              </svg>
-            </label>
-          </div>
+  <div>
+    <input
+      checked={priority === 'Friends'}
+      className={css.radio_input}
+      name="priority"
+      type="radio"
+      value="Friends"
+      id="Friends"
+      onChange={handleChange}
+    />
+    <label className={css.label_icon} htmlFor="Friends">
+      <span className={priority === 'Friends' ? css.circle_active : css.circle}></span>
+      <span className={css.label_text}>Friends</span>
+    </label>
+  </div>
 
-          <div>
-            <input
-              checked={priority === 'High'}
-              className={css.radio_input}
-              name="priority"
-              type="radio"
-              value="High"
-              id="High"
-              onChange={handleChange}
-            />
-            <label className={css.label_icon} htmlFor="High">
-              <svg className={css.icon}>
-                <use
-                  href={`${sprite}${
-                    priority === 'High' ? '#radio-active-icon' : '#radio-icon'
-                  }`}
-                />
-              </svg>
-              <span className={css.span}></span>
-            </label>
-          </div>
-          <div>
-            <input
-              checked={priority === 'Without'}
-              className={css.radio_input}
-              name="priority"
-              type="radio"
-              value="Without"
-              id="Without"
-              onChange={handleChange}
-            />
-            <label
-              className={`${css.label_icon} ${cardTheme}`}
-              htmlFor="Without"
-            >
-              <svg className={css.icon}>
-                <use className={`${css.icon} ${cardTheme}`}
-                  href={`${sprite}${
-                    priority === 'Without'
-                      ? '#radio-active-icon'
-                      : '#radio-icon'
-                  }`}
-                />
-              </svg>
-            </label>
-          </div>
-        </div>
+  <div>
+    <input
+      checked={priority === 'Found myself'}
+      className={css.radio_input}
+      name="priority"
+      type="radio"
+      value="Found myself"
+      id="Found myself"
+      onChange={handleChange}
+    />
+    <label className={css.label_icon} htmlFor="Found myself">
+      <span className={priority === 'Found myself' ? css.circle_active : css.circle}></span>
+      <span className={css.label_text}>Found myself</span>
+    </label>
+  </div>
+</div>
+
       </div>
 
-      <CurrentTheme className="wrap_theme">
+      
         <div className={css.datapicer_conteinet}>
-          <p className={`${css.sub_title} ${cardTheme}`}>Deadline</p>
+          <p className={css.sub_title}  >Date of birth</p>
 
           <DatePicker
             selected={selectedDate}
@@ -271,10 +217,10 @@ const AddCardModal = ({ onClose, onSubmit, initialTaskState, btnText }) => {
             minDate={today}
           />
         </div>
-      </CurrentTheme>
-      <FormBtn textBtn={btnText} />
+      
+      <FormBtn  textBtn="Sent" />
     </form>
   );
 };
 
-export default AddCardModal;
+export default EventReg;

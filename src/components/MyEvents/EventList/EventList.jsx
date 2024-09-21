@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Modal from '../../Modal/Modal';
+import EventReg from "../../EventReg/EventReg"
 
 import {
   selectFilteEvent,
@@ -15,6 +17,9 @@ import css from './EventList.module.css';
 
 const EventList = () => {
   const [selectedButtonId, setSelectedButtonId] = useState(null);
+
+  const [modalActive, setModalActive] = useState(false);
+ 
 
 
   const dispatch = useDispatch();
@@ -40,31 +45,47 @@ const EventList = () => {
   //   dispatch(deleteContacts(id));
   //   setSelectedButtonId(id);
   // };
-
-
-
+  const openModal = () => {
+    setModalActive(true);
+  };
+  
+   
    return (
     <>
       {items.result && items.result.length > 0 ? (
-        <ul >
+        <ul  className={css.item_conteiner}>
           {items.result.map(({ _id, title, description }) => (
             <li key={_id} className={css.wrapper}>
               <h2>{title}</h2>
               <p>{description}</p>
               <div>
-                <button type="button" className={css.button}>
+                <button type="button" className={css.button}
+                onClick={openModal} 
+                >
                   Registratin
                 </button>
                 <button type="button" className={css.button}>
                   Viev 
                 </button>
               </div>
+              <Modal
+          isOpen={modalActive}
+          onClose={setModalActive}
+          title={'Event registration'}
+        >
+          <EventReg
+            onClose={setModalActive}
+           
+            
+          />
+        </Modal>
             </li>
           ))}
         </ul>
       ) : (
         <p>Event not found</p>
       )}
+      
     </>
   );
 };

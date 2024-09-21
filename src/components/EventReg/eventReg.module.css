@@ -13,80 +13,12 @@
   color: #161616;
 }
 
-.input.theme_dark {
-  border: 1px solid #bedbb0;
-  background-color: #1f1f1f;
-  color: #fff;
-}
 
 .input:focus {
   opacity: 1;
   outline: none;
 }
 
-.input.theme_dark::placeholder {
-  color: #fff;
-}
-.input.theme_dark:focus {
-  outline: none;
-}
-.input.theme_light {
-  border: 1px solid #bedbb0;
-}
-.input.theme_light:focus {
-  outline: none;
-}
-.input.theme_violet {
-  border: 1px solid #5255bc;
-}
-.input.theme_violet:focus {
-  outline: none;
-}
- 
-
-.textarea {
-  border: 1px solid #bedbb0;
-  border-radius: 8px;
-  margin-bottom: 24px;
-  padding: 14px;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 129%;
-  letter-spacing: -0.02em;
-  color: #161616;
-  resize: none;
-}
-
-.textarea.theme_dark {
-  border: 1px solid #bedbb0;
-  background-color: #1f1f1f;
-  color: #fff;
-}
-
-.textarea:focus {
-  opacity: 1;
-  outline: none;
-}
-
-.textarea.theme_dark::placeholder {
-  color: #fff;
-}
-.textarea.theme_dark:focus {
-  outline: none;
-}
-.textarea.theme_light {
-  border: 1px solid #bedbb0;
-}
-.textarea.theme_light:focus {
-  outline: none;
-}
-.textarea.theme_violet {
-  border: 1px solid #5255bc;
-}
-.textarea.theme_violet:focus {
-  outline: none;
-}
- 
 
 .sub_title {
   margin-bottom: 4px;
@@ -95,112 +27,16 @@
   letter-spacing: -0.02em;
   color: rgba(22, 22, 22, 0.5);
 }
-.sub_title.theme_dark {color: rgba(255, 255, 255, 0.5);}
-.sub_title.theme_violet{color: rgba(22, 22, 22, 0.5);}
-.sub_title.theme_light {color: rgba(22, 22, 22, 0.5);}
 
 
-:root {
-  --Low: #8fa1d0;
-  --Medium: #e09cb5;
-  --High: #bedbb0;
-  --Without: rgba(22, 22, 22, 0.3);
-  --WithoutBlackThema :rgba(255, 255, 255, 0.5);
-}
+
 .label_icon {
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.label_icon::before {
-  content: '';
-  position: absolute;
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  background-color: var(--High);
-  border-radius: 50%;
-  background-repeat: no-repeat;
-  background-position: center;
-  text-align: center;
-  opacity: 0;
-}
 
-input[value='Low'] + label svg use {
-  fill: var(--Low);
-  stroke: transparent;
-}
-
-input[value='Medium'] + label svg use {
-  fill: var(--Medium);
-  stroke: transparent;
-}
-
-input[value='High'] + label svg use {
-  fill: var(--High);
-  stroke: transparent;
-}
-
-input[value='Without'] + label svg use {
-  fill: var(--Without);
-  stroke: transparent;
-}
-
-input[value='Without'] + label svg use.icon.theme_dark {
-  fill: var(--WithoutBlackThema);
-  stroke: transparent;
-}
-
-input[value='Low']:checked + label svg use {
-  fill: transparent;
-  stroke: var(--Low);
-}
-
-input[value='Low']:checked + .label_icon::before {
-  opacity: 1;
-  background-color: var(--Low);
-}
-
-input[value='Medium']:checked + label svg use {
-  fill: transparent;
-  stroke: var(--Medium);
-}
-
-input[value='Medium']:checked + .label_icon::before {
-  opacity: 1;
-  background-color: var(--Medium);
-}
-
-input[value='High']:checked + label svg use {
-  fill: transparent;
-  stroke: var(--High);
-}
-input[value='High']:checked + .label_icon::before {
-  opacity: 1;
-  background-color: var(--High);
-}
-
-input[value='Without']:checked + label svg use {
-  fill: transparent;
-  stroke: var(--Without);
-}
-
-input[value='Without']:checked + label svg .icon.cardTheme {
-  fill: transparent;
-  stroke: var(--WithoutBlackThema);
-
-}
-
-input[value='Without']:checked + .label_icon::before {
-  opacity: 1;
-  background-color: var(--Without);
-}
-
-input[value='Without']:checked + label.label_icon.cardTheme::before {
-  opacity: 1;
-  background-color: white
-}
 
 .radio_container {
   margin-bottom: 14px;
@@ -278,15 +114,38 @@ input[value='Without']:checked + label.label_icon.cardTheme::before {
 
 @media (min-width: 375px) {
   .form {
-    width: 287px;
+    width: 700px;
   }
 }
 
 @media (min-width: 768px) and (max-width: 1439px) {
   .form {
-    width: 302px;
+    width: 900px;
   }
 }
 
 @media (min-width: 1440px) {
+}
+.circle {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #ccc; /* Цвет неактивного круга */
+  margin-right: 8px;
+}
+
+.circle_active {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #007bff; /* Цвет активного круга */
+  background-color: #007bff;  /* Цвет заливки активного круга */
+  margin-right: 8px;
+}
+
+.label_text {
+  font-size: 14px; /* Размер текста подписи */
+  color: #333;     /* Цвет текста */
 }

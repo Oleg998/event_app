@@ -11,6 +11,7 @@
   z-index: 2;
 }
 .modal_content {
+  justify-content: center;
   padding: 24px;
   display: grid;
   grid-template-columns: auto;
@@ -20,8 +21,8 @@
   border-radius: 8px;
   background: #fcfcfc;
   box-shadow: 0 4px 16px 0 rgba(22, 22, 22, 0.05);
-  max-width: 350px;
-  /* width: 100%; */
+  max-width: 900px;
+   width: 100%; 
 }
 
 .modalTitle {

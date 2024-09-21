@@ -7,6 +7,7 @@ const HomePage = () => {
    <div className={css.wrraper}>         
      <p className={css.shadowText}>Welcome <br /> To <br /> Phonebook </p>
       </div>
+      
       <EventList/>
   </> 
 

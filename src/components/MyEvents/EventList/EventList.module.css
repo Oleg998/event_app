@@ -7,6 +7,16 @@
   padding: 10px 30px 60px 30px ;
   max-width: calc(100vw - 40px);
 }
+ul , li {
+  list-style: none;
+}
+.item_conteiner{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 10px; 
+  width: 100%; 
+  padding: 10px;
+}
 .phone_list {
   display: flex;
   flex-direction: column;

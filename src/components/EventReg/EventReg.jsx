@@ -1,4 +1,4 @@
-import css from './addcardModal.module.css';
+import css from './eventReg.module.css';
 import Notiflix from 'notiflix';
 import sprite from '../../../images/icons.svg';
 import FormBtn from './../FormBtn/FormBtn';

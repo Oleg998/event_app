@@ -6,35 +6,23 @@ import { Link } from 'react-router-dom';
 import { selectFilteEvent } from '../../../redux/event/events-selectors';
 import { fetchEvents } from '../../../redux/event/events-operation';
 import css from './EventList.module.css';
+import Loader from 'components/Loader/Loader';
 
 const EventList = () => {
-  const [selectedButtonId, setSelectedButtonId] = useState(null);
-
-  const [modalActive, setModalActive] = useState(false);
-
+  const [activeModalId, setActiveModalId] = useState(null);
   const dispatch = useDispatch();
-
   const items = useSelector(selectFilteEvent);
 
   useEffect(() => {
-    setSelectedButtonId(null);
     dispatch(fetchEvents());
-  }, [dispatch, selectedButtonId]);
+  }, [dispatch]);
 
-  // useEffect(()=>{
-  //   if (status==="deleteRejected") {toast.error('Contact not deleted')}
-  // },[status]);
+  const openModal = (id) => {
+    setActiveModalId(id);
+  };
 
-  // useEffect(()=>{
-  //   if(status==="deleteFulfilled"){toast.success("Contact deleted successfully")}
-  // },[status]);
-
-  // const deleteName = id => {
-  //   dispatch(deleteContacts(id));
-  //   setSelectedButtonId(id);
-  // };
-  const openModal = () => {
-    setModalActive(true);
+  const closeModal = () => {
+    setActiveModalId(null);
   };
 
   return (
@@ -49,20 +37,24 @@ const EventList = () => {
                 <button
                   type="button"
                   className={css.button}
-                  onClick={openModal}
+                  onClick={() => openModal(_id)}
                 >
-                  Registratin
+                  Registration
                 </button>
-                <Link to="/evets" className={css.button}>
-                  Viev
-                </Link>
+                {/* Передача eventId через state при переходе на другую страницу */}
+                <Link
+  to={`/events/${_id}`} // Замість /events
+  className={css.button}
+>
+  View
+</Link>
               </div>
               <Modal
-                isOpen={modalActive}
-                onClose={setModalActive}
-                title={'Event registration'}
+                isOpen={activeModalId === _id}
+                onClose={closeModal}
+                title="Event registration"
               >
-                <EventReg eventId={_id} onClose={setModalActive} />
+                <EventReg eventId={_id} onClose={closeModal} />
               </Modal>
             </li>
           ))}

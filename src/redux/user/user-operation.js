@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import {
-  registerUser,
+  registerUser,getUserByEvent
 } from '../../api/user-api';
 
 export const register = createAsyncThunk(
@@ -16,4 +16,17 @@ export const register = createAsyncThunk(
     }
   }
 );
-
+export const fetchUser = createAsyncThunk(
+  'user/fetch',
+  async (_, thunkAPI) => {
+    try {
+      const data = await getUserByEvent();
+      
+      return data;
+      
+      
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

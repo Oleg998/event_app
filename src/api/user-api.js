@@ -9,4 +9,12 @@ export const registerUser = async body => {
   return data;
 };
 
+
+export const getUserByEvent = async (id) => {
+  const { data } = await authInstance.get(`/users/${id}`);
+ 
+  
+  return data;
+};
+
 export default authInstance;

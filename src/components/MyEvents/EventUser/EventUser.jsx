@@ -1,76 +1,61 @@
+
+import { useLocation } from 'react-router-dom';
+import {
+  selecUser
+} from "../../../redux/user/user-selectors"
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Modal from '../../Modal/Modal';
-import EventReg from '../../EventReg/EventReg';
-import { Link } from 'react-router-dom';
-import { selectFilteEvent } from '../../../redux/event/events-selectors';
-import { fetchEvents } from '../../../redux/event/events-operation';
 import css from './eventUser.module.css';
+import { fetchUser } from "../../../redux/user/user-operation";
 
 const EventUser = () => {
-  const [selectedButtonId, setSelectedButtonId] = useState(null);
-
-  const [modalActive, setModalActive] = useState(false);
-
+  
+ 
   const dispatch = useDispatch();
 
-  const items = useSelector(selectFilteEvent);
+
+  // Стейт для хранения пользователей, ошибки и статуса загрузки
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const location = useLocation();
+
+
+  const { pathname } = location;
+  const eventId = pathname.split('/').pop(); 
+
+
 
   useEffect(() => {
-    setSelectedButtonId(null);
-    dispatch(fetchEvents());
-  }, [dispatch, selectedButtonId]);
+    if (eventId) {
+      dispatch(fetchUser(eventId))
+    }
+    }, [dispatch, eventId]);
 
-  // useEffect(()=>{
-  //   if (status==="deleteRejected") {toast.error('Contact not deleted')}
-  // },[status]);
+    const items=useSelector(selecUser)
 
-  // useEffect(()=>{
-  //   if(status==="deleteFulfilled"){toast.success("Contact deleted successfully")}
-  // },[status]);
+   
 
-  // const deleteName = id => {
-  //   dispatch(deleteContacts(id));
-  //   setSelectedButtonId(id);
-  // };
-  const openModal = () => {
-    setModalActive(true);
-  };
+
 
   return (
     <>
-      {items.result && items.result.length > 0 ? (
-        <ul className={css.item_conteiner}>
-          {items.result.map(({ _id, title, description }) => (
-            <li key={_id} className={css.wrapper}>
-              <h2>{title}</h2>
-              <p>{description}</p>
-              <div>
-                <button
-                  type="button"
-                  className={css.button}
-                  onClick={openModal}
-                >
-                  Registratin
-                </button>
-                <Link to="/evets" className={css.button}>
-                  Viev
-                </Link>
-              </div>
-              <Modal
-                isOpen={modalActive}
-                onClose={setModalActive}
-                title={'Event registration'}
-              >
-                <EventReg eventId={_id} onClose={setModalActive} />
-              </Modal>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>Event not found</p>
-      )}
-    </>
+    {items && items.length > 0 ? (
+      <ul className={css.item_conteiner}>
+        {items.map(({ _id, name, birthday , email }) => (
+          <li key={_id} className={css.wrapper}>
+            <h2>{name}</h2>
+            <p>{birthday}</p>
+            <p>{email}</p>
+          
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p>Event not found</p>
+    )}
+  </>
   );
 };
 

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {register} from "./user-operation"
+import {register,fetchUser} from "./user-operation"
 
 const initialState = {
     user:{},
@@ -33,6 +33,17 @@ const user = createSlice ({
             state.isLogin=true;
           })
           .addCase(register.rejected, statusRejected)
+
+
+          .addCase(fetchUser.pending, statusPending)
+    
+          .addCase(fetchUser.fulfilled, (state, { payload }) => {
+            state.isLoading = false;
+            state.error = null;
+            state.user = payload;
+            state.isLogin=true;
+          })
+          .addCase(fetchUser.rejected, statusRejected)
           
 }})
 

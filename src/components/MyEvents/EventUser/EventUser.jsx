@@ -5,9 +5,9 @@ import EventReg from '../../EventReg/EventReg';
 import { Link } from 'react-router-dom';
 import { selectFilteEvent } from '../../../redux/event/events-selectors';
 import { fetchEvents } from '../../../redux/event/events-operation';
-import css from './EventList.module.css';
+import css from './eventUser.module.css';
 
-const EventList = () => {
+const EventUser = () => {
   const [selectedButtonId, setSelectedButtonId] = useState(null);
 
   const [modalActive, setModalActive] = useState(false);
@@ -74,4 +74,4 @@ const EventList = () => {
   );
 };
 
-export default EventList;
+export default EventUser;

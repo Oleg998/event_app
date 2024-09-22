@@ -4,12 +4,6 @@ import sprite from '../../images/icons.svg';
 
 
 const CloseButton = ({ onClose }) => {
-
-
-
-
-
-
     const handleClick = () => {
       onClose();
     }

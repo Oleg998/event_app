@@ -7,17 +7,29 @@ import { selectFilteEvent } from '../../../redux/event/events-selectors';
 import { fetchEvents } from '../../../redux/event/events-operation';
 import css from './EventList.module.css';
 import Loader from 'components/Loader/Loader';
+import { useSearchParams } from 'react-router-dom';
 
 const EventList = () => {
+  const [totaPage, setTotalPage] = useState('');
   const [activeModalId, setActiveModalId] = useState(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = searchParams.get('page') || 1;
+ 
+  const LoadMore = () => setSearchParams({ page: Number(page) + 1 });
+
   const dispatch = useDispatch();
+
   const items = useSelector(selectFilteEvent);
 
   useEffect(() => {
-    dispatch(fetchEvents());
-  }, [dispatch]);
+    setTotalPage(items.total);
+  }, [items.total]);
 
-  const openModal = (id) => {
+  useEffect(() => {
+    dispatch(fetchEvents({page }))
+  }, [dispatch, page]);
+
+  const openModal = id => {
     setActiveModalId(id);
   };
 
@@ -43,11 +55,11 @@ const EventList = () => {
                 </button>
                 {/* Передача eventId через state при переходе на другую страницу */}
                 <Link
-  to={`/events/${_id}`} // Замість /events
-  className={css.button}
->
-  View
-</Link>
+                  to={`/events/${_id}`} // Замість /events
+                  className={css.button}
+                >
+                  View
+                </Link>
               </div>
               <Modal
                 isOpen={activeModalId === _id}
@@ -62,6 +74,9 @@ const EventList = () => {
       ) : (
         <p>Event not found</p>
       )}
+      <button onClick={LoadMore} type="button">
+        Load more
+      </button>
     </>
   );
 };

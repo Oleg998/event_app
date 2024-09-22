@@ -3,16 +3,18 @@ import {
   requestEvent,
 } from '../../api/event-api';
 
-export const fetchEvents = createAsyncThunk(
+
+ export const fetchEvents = createAsyncThunk(
   'events/fetchAll',
-  async (_, thunkAPI) => {
+  async ({  page }, thunkAPI) => {
     try {
-      const data = await requestEvent();
+      const data = await requestEvent( page);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
+
 
 

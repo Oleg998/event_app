@@ -6,27 +6,27 @@ import { Link } from 'react-router-dom';
 import { selectFilteEvent } from '../../../redux/event/events-selectors';
 import { fetchEvents } from '../../../redux/event/events-operation';
 import css from './EventList.module.css';
-import Loader from 'components/Loader/Loader';
 import { useSearchParams } from 'react-router-dom';
 
 const EventList = () => {
-  const [totaPage, setTotalPage] = useState('');
+  const [totaPage, setTotalPage] = useState(0); // Загальна кількість сторінок
   const [activeModalId, setActiveModalId] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
-  const page = searchParams.get('page') || 1;
- 
-  const LoadMore = () => setSearchParams({ page: Number(page) + 1 });
+  const page = Number(searchParams.get('page')) || 1;
+  const perPage = 9; // Кількість подій на сторінку
 
   const dispatch = useDispatch();
-
   const items = useSelector(selectFilteEvent);
 
   useEffect(() => {
-    setTotalPage(items.total);
+    if (items.total) {
+      const totalPages = Math.ceil(items.total / perPage); // Розрахунок кількості сторінок
+      setTotalPage(totalPages);
+    }
   }, [items.total]);
 
   useEffect(() => {
-    dispatch(fetchEvents({page }))
+    dispatch(fetchEvents({ page, perPage }));
   }, [dispatch, page]);
 
   const openModal = id => {
@@ -35,6 +35,12 @@ const EventList = () => {
 
   const closeModal = () => {
     setActiveModalId(null);
+  };
+
+  const handlePageChange = newPage => {
+    if (newPage >= 1 && newPage <= totaPage) {
+      setSearchParams({ page: newPage });
+    }
   };
 
   return (
@@ -53,9 +59,8 @@ const EventList = () => {
                 >
                   Registration
                 </button>
-                {/* Передача eventId через state при переходе на другую страницу */}
                 <Link
-                  to={`/events/${_id}`} // Замість /events
+                  to={`/events/${_id}`} 
                   className={css.button}
                 >
                   View
@@ -74,9 +79,38 @@ const EventList = () => {
       ) : (
         <p>Event not found</p>
       )}
-      <button onClick={LoadMore} type="button">
-        Load more
-      </button>
+
+     
+      <div className={css.pagination}>
+        <button
+          type="button"
+          className={css.pageButton}
+          onClick={() => handlePageChange(page - 1)}
+          disabled={page === 1} 
+        >
+          &#8592; 
+        </button>
+
+        {Array.from({ length: totaPage }, (_, index) => (
+          <button
+            key={index}
+            type="button"
+            className={`${css.pageButton} ${page === index + 1 ? css.active : ''}`}
+            onClick={() => handlePageChange(index + 1)}
+          >
+            {index + 1}
+          </button>
+        ))}
+
+        <button
+          type="button"
+          className={css.pageButton}
+          onClick={() => handlePageChange(page + 1)}
+          disabled={page === totaPage} 
+        >
+          &#8594; 
+        </button>
+      </div>
     </>
   );
 };

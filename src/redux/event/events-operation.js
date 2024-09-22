@@ -6,7 +6,7 @@ import {
 
  export const fetchEvents = createAsyncThunk(
   'events/fetchAll',
-  async ({  page }, thunkAPI) => {
+  async ({page}, thunkAPI) => {
     try {
       const data = await requestEvent( page);
       return data;

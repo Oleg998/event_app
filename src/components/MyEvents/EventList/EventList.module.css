@@ -55,6 +55,21 @@ ul , li {
       margin-left: 10px;
       vertical-align: middle;
     }
+    .pagination {
+      display: flex;
+      justify-content: center;
+    }
+    .pageButton{
+      cursor: pointer;
+      border: none;
+      background-color: inherit;
+      color: blue;
+      font-size: 16px;
+      font-weight: 400;
+    }
+    .pageButton:hover{
+      font-size: 18px;
+    }
     
     @keyframes spin {
       to {

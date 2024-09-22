@@ -13,8 +13,6 @@ const EventUser = () => {
  
   const dispatch = useDispatch();
 
-
-  // Стейт для хранения пользователей, ошибки и статуса загрузки
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -34,11 +32,6 @@ const EventUser = () => {
     }, [dispatch, eventId]);
 
     const items=useSelector(selecUser)
-
-   
-
-
-
   return (
     <>
     {items && items.length > 0 ? (

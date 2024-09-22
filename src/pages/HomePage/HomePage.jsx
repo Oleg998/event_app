@@ -5,7 +5,7 @@ const HomePage = () => {
 
   return ( <> 
    <div className={css.wrraper}>         
-     <p className={css.shadowText}>Welcome <br /> To <br /> Phonebook </p>
+     <p className={css.shadowText}>Evets </p>
       </div>
       
       <EventList/>

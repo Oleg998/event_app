@@ -31,7 +31,6 @@ const EventList = () => {
     dispatch(fetchEvents());
   }, [dispatch,selectedButtonId ]);
 
-  console.log(items)
 
   // useEffect(()=>{
   //   if (status==="deleteRejected") {toast.error('Contact not deleted')} 
@@ -74,6 +73,7 @@ const EventList = () => {
           title={'Event registration'}
         >
           <EventReg
+            eventId={_id}
             onClose={setModalActive}
            
             

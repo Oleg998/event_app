@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import 'react-datepicker/dist/react-datepicker.css';
 import './calendar.css';
 
-const EventReg = ({ onClose }) => {
+const EventReg = ({ onClose , eventId }) => {
   const options = {
     year: 'numeric',
     month: 'numeric',
@@ -19,6 +19,7 @@ const EventReg = ({ onClose }) => {
   const firstData = dat.toLocaleDateString('en-US', options);
   
   const INITIAL_STATE = {
+    event:eventId , 
     name: '',
     email: '',
     priority: 'Social media',

@@ -23,7 +23,7 @@
 .sub_title {
   margin-bottom: 4px;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: -0.02em;
   color:black
 }
@@ -131,7 +131,7 @@
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  border: 2px solid #ccc; 
+  border: 2px solid #ccc; /* Цвет неактивного круга */
   margin-right: 8px;
 }
 
@@ -140,12 +140,12 @@
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  border: 2px solid #007bff; 
-  background-color: #007bff;  
+  border: 2px solid #007bff; /* Цвет активного круга */
+  background-color: #007bff;  /* Цвет заливки активного круга */
   margin-right: 8px;
 }
 
 .label_text {
-  font-size: 14px; 
-  color: #333;    
+  font-size: 14px; /* Размер текста подписи */
+  color: #333;     /* Цвет текста */
 }

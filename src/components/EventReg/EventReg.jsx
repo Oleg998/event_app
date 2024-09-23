@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import 'react-datepicker/dist/react-datepicker.css';
 import './calendar.css';
 import { useSelector } from 'react-redux';
-import {selecStatus} from "../../redux/user/user-selectors"
+import {selecStatusError} from "../../redux/user/user-selectors"
 
 const EventReg = ({ onClose , eventId }) => {
   const options = {
@@ -19,7 +19,7 @@ const EventReg = ({ onClose , eventId }) => {
   };
   const dat = new Date();
   const firstData = dat.toLocaleDateString('en-US', options);
-  const state=useSelector(selecStatus)
+  const state=useSelector(selecStatusError)
   const INITIAL_STATE = {
     event:eventId , 
     name: '',

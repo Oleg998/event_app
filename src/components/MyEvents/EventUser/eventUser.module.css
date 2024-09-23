@@ -65,3 +65,28 @@ ul , li {
     .error_mesager{
       color: red;
     }
+
+
+    .input {
+      margin: 0 auto;
+      padding: 14px;
+      border: 1px solid #bedbb0;
+      border-radius: 8px;
+      margin-bottom: 14px;
+      font-weight: 400;
+      font-size: 14px;
+      letter-spacing: -0.02em;
+      color: #161616;
+    }
+    
+    
+    .input:focus {
+      opacity: 1;
+      outline: none;
+    }
+
+    .wrapper_input{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }

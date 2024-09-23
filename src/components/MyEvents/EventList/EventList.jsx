@@ -62,6 +62,7 @@ const EventList = () => {
         <Link
           to={`/events/${_id}`} 
           className={css.button}
+          state={{ title }} 
         >
           View
         </Link>

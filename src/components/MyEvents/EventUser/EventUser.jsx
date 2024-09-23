@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import {
   selecUser
 } from "../../../redux/user/user-selectors"
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import css from './eventUser.module.css';
 import { fetchUser } from "../../../redux/user/user-operation";
@@ -13,9 +13,7 @@ const EventUser = () => {
  
   const dispatch = useDispatch();
 
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+
 
   const location = useLocation();
 

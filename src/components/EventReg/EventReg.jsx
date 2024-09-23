@@ -50,21 +50,14 @@ const EventReg = ({ onClose , eventId }) => {
     if (!validateInput()) {
       Notiflix.Notify.failure('The name and email address cannot be empty.');
       return;
-    }
-    
+    }    
     const formData = { ...addCardModalState, birthday: selectedDate };
-
-    // Выводим данные формы в консоль
-    console.log('Submitted Form Data:', formData);
-
-    // Отправляем данные через Redux action
     dispatch(register(formData));
-
     onClose(false);
     setAddCardModal({ ...INITIAL_STATE });
   };
 
-  const today = new Date();
+
 
   const renderCustomHeader = ({ date, decreaseMonth, increaseMonth }) => {
     const formattedDate = new Date(date).toLocaleString('en-US', {
@@ -228,7 +221,7 @@ const EventReg = ({ onClose , eventId }) => {
           calendarClassName={css.customCalendar}
           dayClassName={dayClassName}
           className={css.my_datepicker}
-          minDate={today} // Здесь убедитесь, что это корректно для даты рождения
+          minDate={new Date('1900-01-01')}
         />
       </div>
 

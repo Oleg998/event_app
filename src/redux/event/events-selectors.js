@@ -3,7 +3,7 @@ import { selectFilter } from "../filter/filter-selectors";
 
 export const selectAllEvents = store => store.event.items;
 
-export const selectorRequestStutus=state=>state.event.requestStutus
+export const selectorRequestStutus=state=>state.event.isLoading
 
 
 export const selectEvent = state =>state.event

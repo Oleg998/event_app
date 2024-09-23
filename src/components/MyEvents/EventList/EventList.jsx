@@ -3,31 +3,31 @@ import { useSelector, useDispatch } from 'react-redux';
 import Modal from '../../Modal/Modal';
 import EventReg from '../../EventReg/EventReg';
 import { Link } from 'react-router-dom';
-import { selectFilteEvent } from '../../../redux/event/events-selectors';
+import { selectFilteEvent,selectorRequestStutus } from '../../../redux/event/events-selectors';
 import { fetchEvents } from '../../../redux/event/events-operation';
 import css from './EventList.module.css';
 import { useSearchParams } from 'react-router-dom';
+import Loader from 'components/Loader/Loader';
 
 const EventList = () => {
-  const [totaPage, setTotalPage] = useState(0); // Загальна кількість сторінок
+  const [totalPage, setTotalPage] = useState(0); 
   const [activeModalId, setActiveModalId] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const page = Number(searchParams.get('page')) || 1;
-  const perPage = 9; // Кількість подій на сторінку
-
+  const perPage = 9; 
   const dispatch = useDispatch();
   const items = useSelector(selectFilteEvent);
-
+   const isLoading= useSelector(selectorRequestStutus)
   useEffect(() => {
     if (items.total) {
-      const totalPages = Math.ceil(items.total / perPage); // Розрахунок кількості сторінок
+      const totalPages = Math.ceil(items.total / perPage); 
       setTotalPage(totalPages);
     }
-  }, [items.total]);
+  }, [items.total, perPage]);
 
   useEffect(() => {
     dispatch(fetchEvents({ page, perPage }));
-  }, [dispatch, page]);
+  }, [dispatch, page, perPage]);
 
   const openModal = id => {
     setActiveModalId(id);
@@ -38,49 +38,55 @@ const EventList = () => {
   };
 
   const handlePageChange = newPage => {
-    if (newPage >= 1 && newPage <= totaPage) {
+    if (newPage >= 1 && newPage <= totalPage) {
       setSearchParams({ page: newPage });
     }
   };
 
+  const elements = items.result?.map(({ _id, title, description, date, organizer }) => (
+    <li key={_id} className={css.wrapper}>
+      <h2>{title}</h2>
+      <p>{description}</p>
+      <div className={css.sub_disc}>
+        <p>{date}</p>
+        <p>{organizer}</p>
+      </div>
+      <div className={css.btn_conteiner}>
+        <button
+          type="button"
+          className={css.button}
+          onClick={() => openModal(_id)}
+        >
+          Registration
+        </button>
+        <Link
+          to={`/events/${_id}`} 
+          className={css.button}
+        >
+          View
+        </Link>
+      </div>
+      <Modal
+        isOpen={activeModalId === _id}
+        onClose={closeModal}
+        title="Event registration"
+      >
+        <EventReg eventId={_id} onClose={closeModal} />
+      </Modal>
+    </li>
+  ));
+
   return (
     <>
-      {items.result && items.result.length > 0 ? (
-        <ul className={css.item_conteiner}>
-          {items.result.map(({ _id, title, description }) => (
-            <li key={_id} className={css.wrapper}>
-              <h2>{title}</h2>
-              <p>{description}</p>
-              <div>
-                <button
-                  type="button"
-                  className={css.button}
-                  onClick={() => openModal(_id)}
-                >
-                  Registration
-                </button>
-                <Link
-                  to={`/events/${_id}`} 
-                  className={css.button}
-                >
-                  View
-                </Link>
-              </div>
-              <Modal
-                isOpen={activeModalId === _id}
-                onClose={closeModal}
-                title="Event registration"
-              >
-                <EventReg eventId={_id} onClose={closeModal} />
-              </Modal>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>Event not found</p>
-      )}
-
-     
+      {isLoading && <Loader></Loader>}
+      {elements?.length > 0 ? (
+      <ul className={css.item_conteiner}>
+        {elements}
+      </ul>
+    ) : (
+      <p>Not Events</p>
+    )}
+      
       <div className={css.pagination}>
         <button
           type="button"
@@ -88,10 +94,10 @@ const EventList = () => {
           onClick={() => handlePageChange(page - 1)}
           disabled={page === 1} 
         >
-          &#8592; 
+          &#8592;
         </button>
 
-        {Array.from({ length: totaPage }, (_, index) => (
+        {Array.from({ length: totalPage }, (_, index) => (
           <button
             key={index}
             type="button"
@@ -106,9 +112,9 @@ const EventList = () => {
           type="button"
           className={css.pageButton}
           onClick={() => handlePageChange(page + 1)}
-          disabled={page === totaPage} 
+          disabled={page === totalPage} 
         >
-          &#8594; 
+          &#8594;
         </button>
       </div>
     </>

@@ -8,6 +8,8 @@ import { register } from "../../redux/user/user-operation";
 import { useDispatch } from 'react-redux';
 import 'react-datepicker/dist/react-datepicker.css';
 import './calendar.css';
+import { useSelector } from 'react-redux';
+import {selecStatus} from "../../redux/user/user-selectors"
 
 const EventReg = ({ onClose , eventId }) => {
   const options = {
@@ -17,7 +19,7 @@ const EventReg = ({ onClose , eventId }) => {
   };
   const dat = new Date();
   const firstData = dat.toLocaleDateString('en-US', options);
-  
+  const state=useSelector(selecStatus)
   const INITIAL_STATE = {
     event:eventId , 
     name: '',
@@ -45,18 +47,36 @@ const EventReg = ({ onClose , eventId }) => {
     setSelectedDate(date.toLocaleDateString('en-US', options));
   };
 
-  const handleSubmit = e => {
+  
+
+  const handleSubmit = async e => {
     e.preventDefault();
+  
+  
     if (!validateInput()) {
       Notiflix.Notify.failure('The name and email address cannot be empty.');
       return;
-    }    
+    }
+  
+ 
     const formData = { ...addCardModalState, birthday: selectedDate };
-    dispatch(register(formData));
-    onClose(false);
-    setAddCardModal({ ...INITIAL_STATE });
+  
+    try {
+     
+      await dispatch(register(formData));
+  
+     
+      if (state !== null) {
+        Notiflix.Notify.failure('An error occurred during registration. Please try again.');
+      } else {
+        Notiflix.Notify.success('Registration successful!');
+        onClose(false);
+        setAddCardModal({ ...INITIAL_STATE });
+      }
+    } catch (error) {
+      Notiflix.Notify.failure('An unexpected error occurred. Please try again.');
+    }
   };
-
 
 
   const renderCustomHeader = ({ date, decreaseMonth, increaseMonth }) => {

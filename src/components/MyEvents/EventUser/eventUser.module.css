@@ -10,7 +10,7 @@
 ul , li {
   list-style: none;
 }
-.item_conteiner{
+.item_container{
   display: grid;
   grid-template-columns: repeat(3, 1fr); 
   gap: 10px; 

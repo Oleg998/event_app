@@ -1,8 +1,8 @@
 {
-  "name": "react-homework-template",
+  "name": "event-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://oleg998.github.io/goit-react-hw-08-phonebook/",
+  "homepage": "https://oleg998.github.io/event_app/",
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.1",
     "@testing-library/jest-dom": "^5.16.3",

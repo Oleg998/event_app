@@ -12,6 +12,8 @@ export const register = createAsyncThunk(
 
       return data;
     } catch (error) {
+    
+      
       return thunkAPI.rejectWithValue(error.message);
     }
   }

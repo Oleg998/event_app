@@ -12,7 +12,7 @@ export const registerUser = async body => {
 
 export const getUserByEvent = async (id) => {
   const { data } = await authInstance.get(`/users/${id}`);
-  console.log(id);
+
   
  
   

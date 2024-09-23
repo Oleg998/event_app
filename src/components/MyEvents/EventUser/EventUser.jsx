@@ -30,8 +30,10 @@ const EventUser = () => {
       dispatch(fetchUser(eventId))
     }
     }, [dispatch, eventId]);
-
+   
+    
     const items=useSelector(selecUser)
+ 
   return (
     <>
     {items && items.length > 0 ? (

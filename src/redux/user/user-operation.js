@@ -18,9 +18,9 @@ export const register = createAsyncThunk(
 );
 export const fetchUser = createAsyncThunk(
   'user/fetch',
-  async (_, thunkAPI) => {
+  async (id, thunkAPI) => {
     try {
-      const data = await getUserByEvent();
+      const data = await getUserByEvent(id);
       
       return data;
       
